@@ -1,4 +1,4 @@
-from myapp import db
+from myapp import db,app
 
 class Friend(db.Model):
     __tablename__ ='friends'
@@ -16,5 +16,8 @@ class Friend(db.Model):
             "email":self.email,
             "role":self.role,
             "gender":self.gender,
-            "imageUrl":self.image_url
-        }
+            "imageUrl":self.image_ur}
+        
+        
+with app.app_context():
+    db.create_all()
