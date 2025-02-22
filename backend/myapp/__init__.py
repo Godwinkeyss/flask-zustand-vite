@@ -3,10 +3,28 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import os
 from flask_migrate import Migrate
+from sqlalchemy.exc import OperationalError
+from sqlalchemy import create_engine
+
+
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+
+DATABASE_URL = 'postgresql://flask_react_zustand_user:Dc25VIWOYePFQ1M3ncZpobalc5yUNFZm@dpg-culrm8btq21c7385rpbg-a.oregon-postgres.render.com/flask_react_zustand'
+database_url = os.environ.get("DATABASE_URL", DATABASE_URL)
+if database_url and database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+    
+    
+app.config["SQLALCHEMY_DATABASE_URI"] =  database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 CORS(app)
+
+try:
+    engine = create_engine(database_url)
+    with engine.connect() as connection:
+        print("✅ Database connection successful!")
+except OperationalError as e:
+    print("❌ Database connection failed:", str(e))
 db=SQLAlchemy(app)
 migrate = Migrate(app,db)
 

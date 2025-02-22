@@ -16,7 +16,7 @@ class Friend(db.Model):
             "email":self.email,
             "role":self.role,
             "gender":self.gender,
-            "imageUrl":self.image_ur}
+            "imageUrl":self.image_url}
         
         
 with app.app_context():
