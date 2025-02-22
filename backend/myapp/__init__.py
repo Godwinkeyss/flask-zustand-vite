@@ -28,7 +28,7 @@ except OperationalError as e:
 db=SQLAlchemy(app)
 migrate = Migrate(app,db)
 
-# Correct Static File Path
+# Correct Static File Path YES
 backend_folder = os.path.dirname(os.path.abspath(__file__))  # myapp/
 root_folder = os.path.dirname(os.path.dirname(backend_folder))  # flask-react/
 frontend_folder = os.path.join(root_folder, "client")  # flask-react/client
