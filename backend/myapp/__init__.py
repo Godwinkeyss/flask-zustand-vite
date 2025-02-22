@@ -5,12 +5,12 @@ import os
 from flask_migrate import Migrate
 from sqlalchemy.exc import OperationalError
 from sqlalchemy import create_engine
-
+from dotenv import load_dotenv
 
 app = Flask(__name__)
+load_dotenv()
 
-DATABASE_URL = 'postgresql://flask_react_zustand_user:Dc25VIWOYePFQ1M3ncZpobalc5yUNFZm@dpg-culrm8btq21c7385rpbg-a.oregon-postgres.render.com/flask_react_zustand'
-database_url = os.environ.get("DATABASE_URL", DATABASE_URL)
+database_url = os.environ.get("DATABASE_URL")
 if database_url and database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
     
